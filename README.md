@@ -94,7 +94,7 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&theme=dark" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline" />
+    <img alt="Star History Char" src="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline" />
   </picture>
 </a>
 
