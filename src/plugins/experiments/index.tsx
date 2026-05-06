@@ -14,14 +14,12 @@ import { Paragraph } from "@components/Paragraph";
 import { Devs, IS_MAC } from "@utils/constants";
 import { Margins } from "@utils/margins";
 import definePlugin, { OptionType } from "@utils/types";
-import { findByPropsLazy, findLazy } from "@webpack";
-import { React } from "@webpack/common";
+import { findByPropsLazy } from "@webpack";
+import { ExperimentStore, React } from "@webpack/common";
 
 import hideBugReport from "./hideBugReport.css?managed";
 
 const KbdStyles = findByPropsLazy("key", "combo");
-const BugReporterExperiment = findLazy(m => m?.definition?.name === "2026-01-bug-reporter");
-
 const modKey = IS_MAC ? "cmd" : "ctrl";
 const altKey = IS_MAC ? "opt" : "alt";
 
@@ -125,7 +123,7 @@ export default definePlugin({
         {
             find: "{PlaygroundEmbed:()=>",
             replacement: {
-                match: /PotionIcon.{0,250}getCurrentUser\(\);return/,
+                match: /"Revenue".{0,250}getCurrentUser\(\);return/,
                 replace: "$& true||"
             }
         },
@@ -146,9 +144,8 @@ export default definePlugin({
                     replace: "{return($1)||($self.matchExperiment(arguments[0].url,$2.label))}"
                 }
             ]
-        }
+        },
     ],
-
     matchExperiment(url: string, label: string): boolean {
         const items = url.split("/");
         const labelCleaned = label.replace(/[^a-zA-Z0-9]+/g, "").toLowerCase();
@@ -156,7 +153,7 @@ export default definePlugin({
         return !!labelCleaned && urlEndCleaned !== undefined && labelCleaned === urlEndCleaned;
     },
 
-    start: () => !BugReporterExperiment.getConfig().hasBugReporterAccess && enableStyle(hideBugReport),
+    start: () => ExperimentStore.getUserExperimentBucket("2026-01-bug-reporter") > 0 && enableStyle(hideBugReport),
     stop: () => disableStyle(hideBugReport),
 
     settingsAboutComponent: () => {
